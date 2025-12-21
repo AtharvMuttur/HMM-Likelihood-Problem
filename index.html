@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HMM Forward Algorithm</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+<main>
+
+    <header>
+        <h1>Hidden Markov Model – Forward Algorithm</h1>
+        <p>Compute the likelihood of an observation sequence using HMM</p>
+    </header>
+
+    <section>
+        <h2>Model Configuration</h2>
+
+        <div class="form-group">
+            <label>Number of Hidden States</label>
+            <input type="number" id="numHidS">
+            <button onclick="handleSubmit1()">Submit</button>
+        </div>
+
+        <div class="form-group">
+            <label>Number of Observation Symbols</label>
+            <input type="number" id="numObs">
+            <button onclick="handleSubmit2()">Submit</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Probability Definitions</h2>
+
+        <div class="form-group">
+            <button onclick="decInitProb()">Declare Initial Probabilities (π)</button>
+        </div>
+
+        <div class="form-group">
+            <button onclick="decTransProb()">Declare Transition Probabilities (A)</button>
+        </div>
+
+        <div class="form-group">
+            <button onclick="decEmmiProb()">Declare Emission Probabilities (B)</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>Observation Sequence</h2>
+
+        <div class="form-group">
+            <label>Length of Observation Sequence</label>
+            <input type="number" id="numS">
+            <button onclick="handleSubmit3()">Submit</button>
+        </div>
+
+        <div class="form-group">
+            <label>Hidden States</label>
+            <ul id="HidS"></ul>
+        </div>
+
+        <div class="form-group">
+            <label>Observations</label>
+            <ul id="Obs"></ul>
+        </div>
+
+        <div class="form-group">
+            <label>Observation Sequence</label>
+            <p id="ObsSeq" class="result-box"></p>
+        </div>
+    </section>
+
+    <section>
+        <h2>Likelihood Computation</h2>
+
+        <div class="form-group">
+            <button onclick="findProb()">Compute Likelihood</button>
+        </div>
+
+        <div class="form-group">
+            <label>Likelihood Value</label>
+            <p id="res" class="result-box"></p>
+        </div>
+    </section>
+
+    <footer>
+        Hidden Markov Model – Forward Algorithm | Academic Project
+    </footer>
+
+</main>
+
+<script src="index.js"></script>
+</body>
+</html>
