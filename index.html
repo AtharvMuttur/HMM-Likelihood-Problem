@@ -15,6 +15,7 @@
         <p>Compute the likelihood of an observation sequence using HMM</p>
     </header>
 
+    <!-- ================= Model Configuration ================= -->
     <section>
         <h2>Model Configuration</h2>
 
@@ -31,6 +32,7 @@
         </div>
     </section>
 
+    <!-- ================= Probability Definitions ================= -->
     <section>
         <h2>Probability Definitions</h2>
 
@@ -39,22 +41,17 @@
         </div>
 
         <div class="form-group">
-            <button onclick="decTransProb()">Declare Transition Probabilities (A)</button>
+            <button onclick="handleSubmit4()">Declare Transition Probabilities (A)</button>
         </div>
 
         <div class="form-group">
-            <button onclick="decEmmiProb()">Declare Emission Probabilities (B)</button>
+            <button onclick="handleSubmit5()">Declare Emission Probabilities (B)</button>
         </div>
     </section>
 
-    <section>
-        <h2>Observation Sequence</h2>
-
-        <div class="form-group">
-            <label>Length of Observation Sequence</label>
-            <input type="number" id="numS">
-            <button onclick="handleSubmit3()">Submit</button>
-        </div>
+    <!-- ================= NEW DISPLAY SECTION ================= -->
+    <section id="modelDisplay">
+        <h2>Model Details</h2>
 
         <div class="form-group">
             <label>Hidden States</label>
@@ -66,12 +63,40 @@
             <ul id="Obs"></ul>
         </div>
 
+        <div class="table-container">
+            <h3>Transition Probability Matrix (A)</h3>
+            <table id="matrixT">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h3>Emission Probability Matrix (B)</h3>
+            <table id="matrixE">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ================= Observation Sequence ================= -->
+    <section>
+        <h2>Observation Sequence</h2>
+
+        <div class="form-group">
+            <label>Length of Observation Sequence</label>
+            <input type="number" id="numS">
+            <button onclick="handleSubmit3()">Submit</button>
+        </div>
+
         <div class="form-group">
             <label>Observation Sequence</label>
             <p id="ObsSeq" class="result-box"></p>
         </div>
     </section>
 
+    <!-- ================= Likelihood ================= -->
     <section>
         <h2>Likelihood Computation</h2>
 

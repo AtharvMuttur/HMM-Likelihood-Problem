@@ -32,6 +32,16 @@ function handleSubmit3(){
     displayObsSequence();
 }
 
+function handleSubmit4(){
+    decTransProb();
+    displayTransProb();
+}
+
+function handleSubmit5(){
+    decEmmiProb();
+    displayEmmiProb();
+}
+
 
 
 
@@ -150,6 +160,78 @@ function displayObsSequence(){
     ObsSeqList.innerHTML = "";
 
     ObsSeqList.textContent = arrL.join(" -> ")
+}
+
+function displayTransProb(){
+  
+
+    const table = document.getElementById("matrixT");
+
+    // Create header row
+    const headerRow = document.createElement("tr");
+    headerRow.appendChild(document.createElement("th")); // empty corner cell
+
+    arr1.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+    });
+
+    table.appendChild(headerRow);
+
+    // Create data rows
+    arrT.forEach((row, i) => {
+        const tr = document.createElement("tr");
+
+        // Row header
+        const rowHeader = document.createElement("th");
+        rowHeader.textContent = arr1[i];
+        tr.appendChild(rowHeader);
+
+        // Matrix values
+        row.forEach(value => {
+        const td = document.createElement("td");
+        td.textContent = value;
+        tr.appendChild(td);
+        });
+
+        table.appendChild(tr);
+    });
+}
+
+function displayEmmiProb(){
+    const table = document.getElementById("matrixE");
+
+    // Create header row
+    const headerRow = document.createElement("tr");
+    headerRow.appendChild(document.createElement("th")); // empty corner cell
+
+    arr2.forEach(col => {
+        const th = document.createElement("th");
+        th.textContent = col;
+        headerRow.appendChild(th);
+    });
+
+    table.appendChild(headerRow);
+
+    // Create data rows
+    arrE.forEach((row, i) => {
+        const tr = document.createElement("tr");
+
+        // Row header
+        const rowHeader = document.createElement("th");
+        rowHeader.textContent = arr1[i];
+        tr.appendChild(rowHeader);
+
+        // Matrix values
+        row.forEach(value => {
+        const td = document.createElement("td");
+        td.textContent = value;
+        tr.appendChild(td);
+        });
+
+        table.appendChild(tr);
+    });
 }
 
 function findProb(){

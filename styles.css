@@ -109,3 +109,156 @@ footer {
     font-size: 13px;
     color: #6b7280;
 }
+
+/* Common matrix table styling */
+#matrixT,
+#matrixE {
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+/* Common cell styling */
+#matrixT th,
+#matrixT td,
+#matrixE th,
+#matrixE td {
+  border: 1px solid #000;
+  padding: 10px 18px;
+  text-align: center;
+  min-width: 80px;
+  font-family: monospace;
+  white-space: nowrap;
+}
+
+/* Column headers */
+#matrixT thead th,
+#matrixE thead th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Row headers */
+#matrixT tbody th,
+#matrixE tbody th {
+  background-color: #fafafa;
+  font-weight: bold;
+}
+
+/* ================= Model Details Section ================= */
+
+#modelDisplay {
+  margin-top: 30px;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+/* Section heading */
+#modelDisplay h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+/* Group spacing */
+#modelDisplay .form-group {
+  margin-bottom: 20px;
+}
+
+/* Labels */
+#modelDisplay label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+/* Lists for Hidden States & Observations */
+#modelDisplay ul {
+  list-style: none;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+#modelDisplay ul li {
+  padding: 6px 12px;
+  background-color: #e9f2ff;
+  border: 1px solid #b5d0ff;
+  border-radius: 6px;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+/* ================= Advanced Table Styling ================= */
+
+#modelDisplay table {
+  margin-top: 8px;
+  border-radius: 2px;
+  overflow: hidden; /*i smooth rounded corners */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Column header row */
+#modelDisplay thead th {
+  background: linear-gradient(135deg, #4b79a1, #283e51);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Row header (state names) */
+#modelDisplay tbody th {
+  background-color: #eef4fb;
+  color: #333;
+}
+
+/* Data cells */
+#modelDisplay td {
+  background-color: #ffffff;
+  transition: background-color 0.2s ease;
+}
+
+/* Hover effect for cells */
+#modelDisplay td:hover {
+  background-color: #eaf3ff;
+}
+
+/* Zebra striping */
+#modelDisplay tbody tr:nth-child(even) td {
+  background-color: #f8fbff;
+}
+
+/* Highlight diagonal (important for transition matrix) */
+#matrixT tbody tr td:nth-child(n+2) {
+  position: relative;
+}
+
+#matrixT tbody tr:nth-child(n) td:nth-child(n + 2) {
+  background-color: #fff;
+}
+
+/* Sticky table header (if scrolling) */
+#modelDisplay .table-container {
+  overflow-x: auto;
+}
+
+/* Scrollbar styling (optional) */
+#modelDisplay .table-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+#modelDisplay .table-container::-webkit-scrollbar-thumb {
+  background: #bbb;
+  border-radius: 4px;
+}
+
+#modelDisplay .table-container::-webkit-scrollbar-track {
+  background: #eee;
+}
+
