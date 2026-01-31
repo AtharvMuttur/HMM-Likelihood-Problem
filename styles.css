@@ -262,3 +262,80 @@ footer {
   background: #eee;
 }
 
+
+/* ================= Keyword Extraction Agent Styles ================= */
+
+#inputText {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 120px;
+}
+
+input[type="password"] {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-size: 14px;
+    min-width: 200px;
+}
+
+.keywords-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px;
+}
+
+.keyword-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.keyword-tag:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.status-message {
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    min-height: 20px;
+}
+
+.status-message.success {
+    background-color: #d1fae5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+}
+
+.status-message.error {
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fca5a5;
+}
+
+.status-message.info {
+    background-color: #dbeafe;
+    color: #1e40af;
+    border: 1px solid #93c5fd;
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: #9ca3af;
+}

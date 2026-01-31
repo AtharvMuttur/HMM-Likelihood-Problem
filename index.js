@@ -267,3 +267,156 @@ function findProb(){
 
     document.getElementById("res").innerHTML = likelihood;
 }
+
+
+// ================= Keyword Extraction Agent =================
+
+let geminiApiKey = "";
+
+function saveApiKey() {
+    const apiKeyInput = document.getElementById("geminiApiKey");
+    geminiApiKey = apiKeyInput.value.trim();
+    
+    if (geminiApiKey) {
+        // Store in sessionStorage for the current session
+        sessionStorage.setItem("geminiApiKey", geminiApiKey);
+        updateStatus("API Key saved successfully!", "success");
+        apiKeyInput.value = ""; // Clear the input for security
+    } else {
+        updateStatus("Please enter a valid API key", "error");
+    }
+}
+
+function updateStatus(message, type) {
+    const statusElement = document.getElementById("extractionStatus");
+    statusElement.textContent = message;
+    statusElement.className = "status-message " + type;
+    
+    // Clear status after 5 seconds
+    setTimeout(() => {
+        statusElement.textContent = "";
+        statusElement.className = "status-message";
+    }, 5000);
+}
+
+async function extractKeywords() {
+    const inputText = document.getElementById("inputText").value.trim();
+    const resultsDiv = document.getElementById("keywordResults");
+    
+    // Retrieve API key from session storage if not already loaded
+    if (!geminiApiKey) {
+        geminiApiKey = sessionStorage.getItem("geminiApiKey") || "";
+    }
+    
+    // Validation
+    if (!geminiApiKey) {
+        updateStatus("Please enter and save your Gemini API key first", "error");
+        return;
+    }
+    
+    if (!inputText) {
+        updateStatus("Please enter some text to extract keywords from", "error");
+        return;
+    }
+    
+    // Show loading state
+    updateStatus("Extracting keywords...", "info");
+    resultsDiv.innerHTML = "<p>Processing...</p>";
+    
+    try {
+        // Call Google Gemini API
+        const keywords = await callGeminiAPI(inputText);
+        
+        // Display results
+        displayKeywords(keywords);
+        updateStatus("Keywords extracted successfully!", "success");
+        
+    } catch (error) {
+        console.error("Error extracting keywords:", error);
+        const errorMsg = document.createElement('p');
+        errorMsg.style.color = 'red';
+        errorMsg.textContent = `Error: ${error.message}`; // Use textContent for safe insertion
+        resultsDiv.innerHTML = '';
+        resultsDiv.appendChild(errorMsg);
+        updateStatus("Failed to extract keywords. Check your API key and try again.", "error");
+    }
+}
+
+async function callGeminiAPI(text) {
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent`;
+    
+    const prompt = `Extract the most important keywords from the following text. Return only the keywords as a comma-separated list, with no additional explanation or formatting:\n\n${text}`;
+    
+    const requestBody = {
+        contents: [{
+            parts: [{
+                text: prompt
+            }]
+        }]
+    };
+    
+    const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': geminiApiKey
+        },
+        body: JSON.stringify(requestBody)
+    });
+    
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || `API request failed with status ${response.status}`);
+    }
+    
+    const data = await response.json();
+    
+    // Extract the generated text from the response
+    if (data.candidates && data.candidates.length > 0) {
+        const generatedText = data.candidates[0].content.parts[0].text;
+        return parseKeywords(generatedText);
+    } else {
+        throw new Error("No response from Gemini API");
+    }
+}
+
+function parseKeywords(text) {
+    // Split by comma and clean up
+    const keywords = text.split(',')
+        .map(kw => kw.trim())
+        .filter(kw => kw.length > 0);
+    
+    return keywords;
+}
+
+function displayKeywords(keywords) {
+    const resultsDiv = document.getElementById("keywordResults");
+    
+    if (keywords.length === 0) {
+        resultsDiv.textContent = "No keywords found";
+        return;
+    }
+    
+    // Create a styled list of keywords using safe DOM manipulation
+    const container = document.createElement('div');
+    container.className = 'keywords-container';
+    
+    keywords.forEach(keyword => {
+        const span = document.createElement('span');
+        span.className = 'keyword-tag';
+        span.textContent = keyword; // Use textContent for safe insertion
+        container.appendChild(span);
+    });
+    
+    resultsDiv.innerHTML = '';
+    resultsDiv.appendChild(container);
+}
+
+// Load API key on page load if it exists in session
+window.addEventListener('DOMContentLoaded', () => {
+    const savedKey = sessionStorage.getItem("geminiApiKey");
+    if (savedKey) {
+        geminiApiKey = savedKey;
+        updateStatus("API Key loaded from session", "success");
+    }
+});

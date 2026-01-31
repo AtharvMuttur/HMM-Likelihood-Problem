@@ -110,6 +110,37 @@
         </div>
     </section>
 
+    <!-- ================= Keyword Extraction Agent ================= -->
+    <section>
+        <h2>Keyword Extraction Agent (AI Powered)</h2>
+        <p>Extract keywords from any text using Google Gemini AI</p>
+
+        <div class="form-group">
+            <label for="geminiApiKey">Google Gemini API Key</label>
+            <input type="password" id="geminiApiKey" placeholder="Enter your Gemini API key">
+            <button onclick="saveApiKey()">Save API Key</button>
+        </div>
+
+        <div class="form-group">
+            <label for="inputText">Input Text</label>
+            <textarea id="inputText" rows="8" placeholder="Enter or paste your text paragraph here..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <button onclick="extractKeywords()">Extract Keywords</button>
+        </div>
+
+        <div class="form-group">
+            <label>Extracted Keywords</label>
+            <div id="keywordResults" class="result-box"></div>
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <p id="extractionStatus" class="status-message"></p>
+        </div>
+    </section>
+
     <footer>
         Hidden Markov Model – Forward Algorithm | Academic Project
     </footer>
