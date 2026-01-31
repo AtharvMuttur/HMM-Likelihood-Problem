@@ -38,7 +38,7 @@ Keyword Extraction Feature:
 4. Click "Extract Keywords" to get AI-generated keywords
 5. Keywords will be displayed as styled tags below the input
 
-Note: The API key is stored only in your browser's session storage and is never sent to any server except Google's Gemini API.
+Note: The API key is stored only in your browser's session storage and is never sent to any server except Google's Gemini API. Keep your API key secure and do not share it. The key is accessible to JavaScript running on the page, so only use this application from trusted sources.
 
 Complexity:
 Time: O(N² × T)

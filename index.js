@@ -333,13 +333,17 @@ async function extractKeywords() {
         
     } catch (error) {
         console.error("Error extracting keywords:", error);
-        resultsDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+        const errorMsg = document.createElement('p');
+        errorMsg.style.color = 'red';
+        errorMsg.textContent = `Error: ${error.message}`; // Use textContent for safe insertion
+        resultsDiv.innerHTML = '';
+        resultsDiv.appendChild(errorMsg);
         updateStatus("Failed to extract keywords. Check your API key and try again.", "error");
     }
 }
 
 async function callGeminiAPI(text) {
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${geminiApiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent`;
     
     const prompt = `Extract the most important keywords from the following text. Return only the keywords as a comma-separated list, with no additional explanation or formatting:\n\n${text}`;
     
@@ -354,7 +358,8 @@ async function callGeminiAPI(text) {
     const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-goog-api-key': geminiApiKey
         },
         body: JSON.stringify(requestBody)
     });
@@ -388,18 +393,23 @@ function displayKeywords(keywords) {
     const resultsDiv = document.getElementById("keywordResults");
     
     if (keywords.length === 0) {
-        resultsDiv.innerHTML = "<p>No keywords found</p>";
+        resultsDiv.textContent = "No keywords found";
         return;
     }
     
-    // Create a styled list of keywords
-    let html = '<div class="keywords-container">';
-    keywords.forEach(keyword => {
-        html += `<span class="keyword-tag">${keyword}</span>`;
-    });
-    html += '</div>';
+    // Create a styled list of keywords using safe DOM manipulation
+    const container = document.createElement('div');
+    container.className = 'keywords-container';
     
-    resultsDiv.innerHTML = html;
+    keywords.forEach(keyword => {
+        const span = document.createElement('span');
+        span.className = 'keyword-tag';
+        span.textContent = keyword; // Use textContent for safe insertion
+        container.appendChild(span);
+    });
+    
+    resultsDiv.innerHTML = '';
+    resultsDiv.appendChild(container);
 }
 
 // Load API key on page load if it exists in session
